@@ -12,6 +12,9 @@ from lxml import etree
 """
 
 root_path = "./data/"
+
+save_path = "./result/"
+
 save_file= "./result/result.xls"
 
 sheet_name = "sheet1"
@@ -70,6 +73,12 @@ def write_xls(data_list):
     excel_w.save(save_file)
 
 def init(need_regenerate = True):
+    if not os.path.exists(root_path):
+        os.makedirs(root_path)
+    
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+
     if need_regenerate:
         if os.path.exists(save_file):
             os.remove(save_file)
