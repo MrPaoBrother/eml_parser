@@ -91,11 +91,16 @@ def process():
     process = 0
     eml_files = fetch_filenames()
     for eml_file in eml_files:
-        if process % 5 == 0:
-            print ("process: %s | %s" % (process, len(eml_files)))
-        result = parser(eml_file)
-        data_list.append(result)
-        process += 1
+        try:
+            if process % 5 == 0:
+                print ("process: %s | %s" % (process, len(eml_files)))
+            result = parser(eml_file)
+            data_list.append(result)
+            process += 1
+        except Exception as e:
+            print ("eml file:%s parse error:%s" % (eml_file, str(e)))
+            continue
+
     write_xls(data_list)
 
 if __name__ == '__main__':
